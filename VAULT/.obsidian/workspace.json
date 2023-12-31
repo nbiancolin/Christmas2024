@@ -1,0 +1,187 @@
+{
+  "main": {
+    "id": "38f84eec1c174aa0",
+    "type": "split",
+    "children": [
+      {
+        "id": "3b872a94f2d937aa",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "471feac22342bd47",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {}
+            }
+          },
+          {
+            "id": "f0fcb582152f5d20",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "MASTER IDEA NOTE.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "b860669bc89b8e9b",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "MASTER IDEA NOTE.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "21aaab692e56112f",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "WEBSITE.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ],
+        "currentTab": 3
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "525bf6500cad482c",
+    "type": "split",
+    "children": [
+      {
+        "id": "5734be764cc0d4a1",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "99701982dd1fff16",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "acac317a1d214c12",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "d99d22e301d1c78e",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "9a7180aacb7f7b45",
+    "type": "split",
+    "children": [
+      {
+        "id": "ac420057ece84db9",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "13f3831106294c8f",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "WEBSITE.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "177d739143e60c08",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "WEBSITE.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "c8d85d9f0886c3e7",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "ab0e540df09df531",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "WEBSITE.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false
+    }
+  },
+  "active": "21aaab692e56112f",
+  "lastOpenFiles": [
+    "MASTER IDEA NOTE.md",
+    "WEBSITE.md"
+  ]
+}
