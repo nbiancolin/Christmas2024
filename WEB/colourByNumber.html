@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color by Numbers</title>
+    <style>
+        #canvas-container {
+            position: relative;
+        }
+
+        #coloring-canvas {
+            border: 1px solid #000;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Color by Numbers</h1>
+<p>Click on the numbered sections to fill them with color.</p>
+
+<div id="canvas-container">
+    <canvas id="coloring-canvas" width="400" height="400"></canvas>
+</div>
+
+<script>
+    const canvas = document.getElementById('coloring-canvas');
+    const ctx = canvas.getContext('2d');
+
+    // Replace 'path/to/your/image.jpg' with the actual path to your image file
+    const image = new Image();
+    image.src = 'pic.png';
+
+    image.onload = function() {
+        ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+    };
+
+    canvas.addEventListener('click', handleCanvasClick);
+
+    function handleCanvasClick(e) {
+        const x = e.offsetX;
+        const y = e.offsetY;
+
+        const pixel = ctx.getImageData(x, y, 1, 1).data;
+        const rgb = `rgb(${pixel[0]}, ${pixel[1]}, ${pixel[2]})`;
+
+        // Check if the pixel is not transparent (assuming a white background)
+        if (pixel[3] !== 0) {
+            alert(`You clicked on a colored section with color: ${rgb}`);
+            // You can perform additional actions here, such as filling the section with a different color
+            // or keeping track of the clicked sections for later analysis.
+        }
+    }
+</script>
+
+</body>
+</html>
