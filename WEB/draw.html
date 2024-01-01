@@ -1,3 +1,4 @@
+<!-- Page 1: index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +8,7 @@
     <style>
         body {
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
             height: 100vh;
             margin: 0;
@@ -16,30 +17,34 @@
         canvas {
             border: 1px solid #000;
         }
+
+        #values {
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
-    <input type="range" id="angleSlider" min="0" max="360" value="0" step="1">
-    <button id="drawButton">Draw</button>
     <canvas id="polarCanvas" width="400" height="400"></canvas>
+    <div id="values">Upper Bound: <span id="upperBoundValue"></span>, Progress: <span id="progressValue"></span></div>
 
     <script>
         const canvas = document.getElementById('polarCanvas');
         const ctx = canvas.getContext('2d');
-        const angleSlider = document.getElementById('angleSlider');
-        const drawButton = document.getElementById('drawButton');
 
-        const points = []; // Array to store traced points
+        const points = [];
         let animationFrameId;
         let currentAngle = 0;
-        const animationSpeed = 0.01; // Adjust animation speed as needed
-        const upperBound = 6.28; //TOOD check this
-        let progress = 2;
+        const animationSpeed = 0.01;
+        let upperBound = parseFloat(getCookie('upperBound')) || 6.28;
+        let progress = parseFloat(localStorage.getItem('progress')) || 0; // Use localStorage
+
+        // Display initial values
+        document.getElementById('upperBoundValue').textContent = upperBound;
+        document.getElementById('progressValue').textContent = progress;
 
         function drawPolarFunction(angle) {
-            const radius = 100; // Adjust the radius as needed
+            const radius = 100;
 
-            // Your polar coordinates function
             const x = 0.04041 + 0.6156 * Math.cos(angle) - 0.3412 * Math.sin(angle) + 0.1344 * Math.cos(2 * angle) - 0.1224 * Math.sin(2 * angle) + 0.08335 * Math.cos(3 * angle) + 0.2634 * Math.sin(3 * angle) - 0.07623 * Math.cos(4 * angle) - 0.09188 * Math.sin(4 * angle) + 0.01339 * Math.cos(5 * angle) - 0.01866 * Math.sin(5 * angle) + 0.1631 * Math.cos(6 * angle) + 0.006984 * Math.sin(6 * angle) + 0.02867 * Math.cos(7 * angle) - 0.01512 * Math.sin(7 * angle) + 0.00989 * Math.cos(8 * angle) + 0.02405 * Math.sin(8 * angle) + 0.002186 * Math.cos(9 * angle);
             const y = 0.04205 + 0.2141 * Math.cos(angle) + 0.4436 * Math.sin(angle) + 0.1148 * Math.cos(2 * angle) - 0.146 * Math.sin(2 * angle) - 0.09506 * Math.cos(3 * angle) - 0.06217 * Math.sin(3 * angle) - 0.0758 * Math.cos(4 * angle) - 0.02987 * Math.sin(4 * angle) + 0.2293 * Math.cos(5 * angle) + 0.1629 * Math.sin(5 * angle) + 0.005689 * Math.cos(6 * angle) + 0.07154 * Math.sin(6 * angle) - 0.02175 * Math.cos(7 * angle) + 0.1169 * Math.sin(7 * angle) - 0.01123 * Math.cos(8 * angle) + 0.02682 * Math.sin(8 * angle) - 0.01068 * Math.cos(9 * angle);
 
@@ -48,9 +53,8 @@
                 y: canvas.height / 2 - y * radius
             };
 
-            if( angle < progress ) { points.push(tracedPoint); }
+            if (angle < progress) { points.push(tracedPoint); }
 
-            // Draw lines connecting traced points
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.beginPath();
             ctx.moveTo(points[0].x, points[0].y);
@@ -62,7 +66,6 @@
             ctx.strokeStyle = 'red';
             ctx.stroke();
 
-            // Draw a point at the current position
             ctx.beginPath();
             ctx.arc(tracedPoint.x, tracedPoint.y, 3, 0, 2 * Math.PI);
             ctx.fillStyle = 'red';
@@ -70,35 +73,42 @@
             ctx.stroke();
         }
 
-        function updateCanvas() {
-            const angle = parseFloat(angleSlider.value);
-            drawPolarFunction(angle);
-        }
-
         function animate() {
             currentAngle += animationSpeed;
             if (currentAngle > upperBound) {
                 currentAngle = 0;
-                points.length = 0; // Clear points array for the next cycle
+                points.length = 0;
                 cancelAnimationFrame(animationFrameId);
             }
 
             drawPolarFunction(currentAngle);
             animationFrameId = requestAnimationFrame(animate);
+
+            // Update displayed values
+            document.getElementById('progressValue').textContent = progress;
         }
 
-        // Start animation on page load
         animate();
 
-        // Stop animation when user interacts with the slider
-        angleSlider.addEventListener('input', () => {
-            cancelAnimationFrame(animationFrameId);
-            updateCanvas();
-        });
+        if (!getCookie('upperBound')) {
+            setCookie('upperBound', upperBound);
+        }
 
-        // Add event listener to the button to draw a bit of the animation each time it's pressed
-        drawButton.addEventListener('click', () => {
-            progress += 1;
+        // Remove progress from cookies and use localStorage instead
+        if (getCookie('progress')) {
+            document.cookie = 'progress=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+        }
+
+        function setCookie(name, value) {
+            document.cookie = `${name}=${value}; path=/`;
+        }
+
+        // Event listener for changes in localStorage
+        window.addEventListener('storage', (event) => {
+            if (event.key === 'progress') {
+                progress = parseFloat(event.newValue) || 0;
+                document.getElementById('progressValue').textContent = progress;
+            }
         });
     </script>
 </body>

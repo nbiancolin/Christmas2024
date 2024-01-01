@@ -51,8 +51,7 @@
               }
             }
           }
-        ],
-        "currentTab": 3
+        ]
       }
     ],
     "direction": "vertical"
@@ -118,7 +117,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "WEBSITE.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -135,7 +133,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "WEBSITE.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -157,17 +154,14 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "WEBSITE.md"
-              }
+              "state": {}
             }
           }
         ]
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -179,9 +173,9 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "21aaab692e56112f",
+  "active": "471feac22342bd47",
   "lastOpenFiles": [
-    "MASTER IDEA NOTE.md",
-    "WEBSITE.md"
+    "WEBSITE.md",
+    "MASTER IDEA NOTE.md"
   ]
 }
