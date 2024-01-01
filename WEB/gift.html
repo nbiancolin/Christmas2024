@@ -3,29 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Polar Coordinates Function Drawer</title>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-
-        canvas {
-            border: 1px solid #000;
-        }
-
-        button {
-            margin-top: 10px;
-        }
-    </style>
+    <title>GIFT</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-    <canvas id="polarCanvas" width="400" height="400"></canvas>
-    <button id="increaseButton">Increase Progress</button>
+<body id="giftBody">
+    <canvas id="polarCanvas" width=900 height=650></canvas>
+    <!-- <button id="increaseButton">Increase Progress</button> -->
+    <p id="progressText">Progress: <span id="progressValue">2</span></p> <!-- Should only show if switch is undefined-->
 
+    <p id="link"> <a href="./working.html" target="_blank" rel="noopener noreferrer">Click Me!</a></p>
+    <p id="progressText"> (Keep this tab open) </p>
     <script>
         const canvas = document.getElementById('polarCanvas');
         const ctx = canvas.getContext('2d');
@@ -34,9 +21,8 @@
         let animationFrameId;
         let currentAngle = 0;
         const animationSpeed = 0.005; // Adjust animation speed as needed
-        const upperBound = 6.28; // TOOD check this
+        const upperBound = 6.28 * 2;
 
-        // Read the progress value from the cookie
         let progress = parseFloat(getCookie('progress')) || 0.01;
 
         function getCookie(name) {
@@ -57,19 +43,9 @@
             document.cookie = cookieValue;
         }
 
-        function headText(){
-            
-        }
-
-
-
-
-
-
         function drawPolarFunction(angle) {
-            const radius = 100; // Adjust the radius as needed
+            const radius = 300;
 
-            // Your polar coordinates function
             const x = 0.04041 + 0.6156 * Math.cos(angle) - 0.3412 * Math.sin(angle) + 0.1344 * Math.cos(2 * angle) - 0.1224 * Math.sin(2 * angle) + 0.08335 * Math.cos(3 * angle) + 0.2634 * Math.sin(3 * angle) - 0.07623 * Math.cos(4 * angle) - 0.09188 * Math.sin(4 * angle) + 0.01339 * Math.cos(5 * angle) - 0.01866 * Math.sin(5 * angle) + 0.1631 * Math.cos(6 * angle) + 0.006984 * Math.sin(6 * angle) + 0.02867 * Math.cos(7 * angle) - 0.01512 * Math.sin(7 * angle) + 0.00989 * Math.cos(8 * angle) + 0.02405 * Math.sin(8 * angle) + 0.002186 * Math.cos(9 * angle);
             const y = 0.04205 + 0.2141 * Math.cos(angle) + 0.4436 * Math.sin(angle) + 0.1148 * Math.cos(2 * angle) - 0.146 * Math.sin(2 * angle) - 0.09506 * Math.cos(3 * angle) - 0.06217 * Math.sin(3 * angle) - 0.0758 * Math.cos(4 * angle) - 0.02987 * Math.sin(4 * angle) + 0.2293 * Math.cos(5 * angle) + 0.1629 * Math.sin(5 * angle) + 0.005689 * Math.cos(6 * angle) + 0.07154 * Math.sin(6 * angle) - 0.02175 * Math.cos(7 * angle) + 0.1169 * Math.sin(7 * angle) - 0.01123 * Math.cos(8 * angle) + 0.02682 * Math.sin(8 * angle) - 0.01068 * Math.cos(9 * angle);
 
@@ -80,7 +56,6 @@
 
             if (angle < progress) { points.push(tracedPoint); }
 
-            // Draw lines connecting traced points
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.beginPath();
             ctx.moveTo(points[0].x, points[0].y);
@@ -89,13 +64,12 @@
                 ctx.lineTo(points[i].x, points[i].y);
             }
 
-            ctx.strokeStyle = 'red';
+            ctx.strokeStyle = 'DodgerBlue';
             ctx.stroke();
 
-            // Draw a point at the current position
             ctx.beginPath();
             ctx.arc(tracedPoint.x, tracedPoint.y, 3, 0, 2 * Math.PI);
-            ctx.fillStyle = 'red';
+            ctx.fillStyle = 'DodgerBlue';
             ctx.fill();
             ctx.stroke();
         }
@@ -104,28 +78,87 @@
             currentAngle += animationSpeed;
             if (currentAngle > upperBound) {
                 currentAngle = 0;
-                points.length = 0; // Clear points array for the next cycle
+                points.length = 0;
                 cancelAnimationFrame(animationFrameId);
             }
 
             drawPolarFunction(currentAngle);
             animationFrameId = requestAnimationFrame(animate);
+
+            // Update progress text content
+            document.getElementById('progressValue').textContent = progress;
+            updateProgressText();  // Call the function to update text dynamically
         }
 
-        // Start animation on page load
         animate();
 
-        // Update the progress value and the cookie
         function updateProgress(newValue) {
             progress = newValue;
-            setCookie('progress', progress, 30); // Set cookie to expire in 30 days
+            setCookie('progress', progress, 30);
+            updateProgressText();  // Call the function to update text dynamically
         }
 
-        // Add event listener to the button
+        /*
         const increaseButton = document.getElementById('increaseButton');
         increaseButton.addEventListener('click', function() {
             updateProgress(progress + 1);
+        });*/
+
+        function updateProgressText() {
+            const progressText = document.getElementById('progressText');
+            const progressValueSpan = document.getElementById('progressValue');
+
+            if(progress == 0.01){
+                progressText.textContent = `There's nothing here yet! \n To unlock this gift, you need to complete the first task. \n Find the next task at the link below:  `;
+            } else if (pro)
+
+
+            switch(progress){
+                case 0.01:
+                    progressText.textContent = `There's nothing here yet! \n To unlock this gift, you need to complete the first task. \n Find the next task at the link below:  `;
+                    //progressValueSpan.style.color = 'green';
+                    break;
+                case 1.01:
+                    progressText.textContent = `You've completed the first task! \n However, more is required to unlock this gift, you need to complete the second task. \n Find the next task at the link below:  `;
+                    //progressValueSpan.style.color = 'green';
+                    break;
+                case 2.01:
+                    progressText.textContent = `You've completed the second task! \n However, more is required to unlock this gift, you need to complete the third task. \n Find the next task at the link below:  `;
+                    //progressValueSpan.style.color = 'green';
+                    break;
+            }
+
+
+            /*if (progress < 5) {
+                progressText.textContent = `Progress is less than 5: ${progress}`;
+                progressValueSpan.style.color = 'green';
+            } else {
+                progressText.textContent = `Progress is greater than or equal to 5: ${progress}`;
+                progressValueSpan.style.color = 'red';
+            }*/
+        }
+
+        // Listen for messages from other tabs
+        window.addEventListener('message', function (event) {
+            // Check if the message is intended for this window
+            if (event.origin !== window.location.origin) {
+                return;
+            }
+
+            // Check if the message contains progress information
+            if (event.data && typeof event.data.progress !== 'undefined') {
+                // Update the progress
+                updateProgress(event.data.progress);
+            }
         });
+
+        // Function to send progress updates to other tabs
+        function sendProgressUpdate(progress) {
+            // Send a message to all other tabs with the current progress
+            window.postMessage({ progress: progress }, window.location.origin);
+        }
     </script>
+    <button id="increaseButton" onclick="sendProgressUpdate(progress + 1)">Increase Progress</button>
+    <button id="decreaseButton" onclick="sendProgressUpdate(progress - 1)">Decrease Progress</button>
 </body>
 </html>
