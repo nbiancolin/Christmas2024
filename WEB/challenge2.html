@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Center Island Madlib</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body id="challenge2Body">
+
+    <h1>MADLIB</h1>
+
+    <form id="madlib-form">
+        <label for="adjective">Adjective:</label>
+        <input type="text" id="adjective" name="adjective" required><br>
+
+        <label for="friend">Friend's Name:</label>
+        <input type="text" id="friend" name="friend" required><br>
+
+        <label for="color">Colour:</label>
+        <input type="text" id="color" name="color" required><br>
+
+        <label for="noun">Noun:</label>
+        <input type="text" id="noun" name="noun" required><br>
+
+        <label for="clothing">Clothing Item:</label>
+        <input type="text" id="clothing" name="clothing" required><br>
+
+        <label for="celebrity">Celebrity Name:</label>
+        <input type="text" id="celebrity" name="celebrity" required><br>
+
+        <label for="randomActivity">Random Activity:</label>
+        <input type="text" id="randomActivity" name="randomActivity" required><br>
+
+        <label for="animal">Animal:</label>
+        <input type="text" id="animal" name="animal" required><br>
+
+        <label for="accessory">Accessory:</label>
+        <input type="text" id="accessory" name="accessory" required><br>
+
+        <label for="food">Food:</label>
+        <input type="text" id="food" name="food" required><br>
+
+        <label for="sillyAction">Silly Action:</label>
+        <input type="text" id="sillyAction" name="sillyAction" required><br>
+
+        <label for="weirdDish">Weird Dish:</label>
+        <input type="text" id="weirdDish" name="weirdDish" required><br>
+
+        <label for="strangeBeverage">Strange Beverage:</label>
+        <input type="text" id="strangeBeverage" name="strangeBeverage" required><br>
+
+        <label for="pluralNoun">Plural Noun:</label>
+        <input type="text" id="pluralNoun" name="pluralNoun" required><br>
+
+        <label for="sport">Sport:</label>
+        <input type="text" id="sport" name="sport" required><br>
+
+        <label for="instrument">Instrument:</label>
+        <input type="text" id="instrument" name="instrument" required><br>
+
+        <!-- Add more input fields as needed -->
+
+        <button type="button" onclick="generateMadlib()">Generate Madlib</button>
+    </form>
+
+    <div id="madlib-story"></div>
+
+    <script>
+        function generateMadlib() {
+            const adjective = document.getElementById('adjective').value;
+            const friend = document.getElementById('friend').value;
+            const color = document.getElementById('color').value;
+            const noun = document.getElementById('noun').value;
+            const clothing = document.getElementById('clothing').value;
+            const celebrity = document.getElementById('celebrity').value;
+            const randomActivity = document.getElementById('randomActivity').value;
+            const animal = document.getElementById('animal').value;
+            const accessory = document.getElementById('accessory').value;
+            const food = document.getElementById('food').value;
+            const sillyAction = document.getElementById('sillyAction').value;
+            const weirdDish = document.getElementById('weirdDish').value;
+            const strangeBeverage = document.getElementById('strangeBeverage').value;
+            const pluralNoun = document.getElementById('pluralNoun').value;
+            const sport = document.getElementById('sport').value;
+            const instrument = document.getElementById('instrument').value;
+
+            increaseProgress();
+
+            const madlibStory = `
+                <p>Once upon a time, on a sunny day in Toronto, I decided to take a trip to Center Island with my ${adjective} friend, ${friend}. We hopped on the ${color} ferry, excited about the ${adjective} day ahead.</p>
+                <p>As soon as we arrived, we noticed a ${noun} standing near the entrance, wearing a ridiculous ${clothing}. Turns out, it was the island's famous ${celebrity}, known for their love of ${randomActivity}. They offered to give us a personalized tour, and we couldn't believe our luck!</p>
+                <p>Our first stop was the ${animal} petting zoo. We were surprised to see a ${adjective} ${animal} wearing a tiny ${accessory}, and it made us burst into laughter. ${celebrity} tried to feed the ${animal} a ${food}, but it seemed more interested in doing a ${sillyAction} instead.</p>
+                <p>Next, we headed to the ${adjective} amusement park. The roller coaster was so ${adjective} that we could hear screams from miles away. ${celebrity} convinced us to join them on the Ferris wheel, where we couldn't stop ${randomActivity} at the breathtaking view of Toronto's skyline.</p>
+                <p>Feeling a bit hungry, we decided to grab a bite at the ${adjective} food stand. The menu had some peculiar options like ${weirdDish} and ${strangeBeverage}, but we decided to try them anyway. Surprisingly, they were ${adjective} delicious, and we couldn't stop ${randomActivity} for more.</p>
+                <p>Our adventure continued with a visit to the ${adjective} beach. We played beach volleyball with a group of ${pluralNoun}, and it quickly turned into a hilarious match. ${celebrity} even joined in and showed off their impressive ${sport} skills, leaving us in awe.</p>
+                <p>As the sun began to set, we gathered at the ${noun} for a mesmerizing ${adjective} concert. ${celebrity} surprised everyone by grabbing a ${instrument} and joining the band. The music was so ${adjective} that even the seagulls couldn't resist joining in with their squawks.</p>
+                <p>Our day at Center Island ended with a ${adjective} fireworks display. We watched the sky light up with colors like a giant ${noun}. ${celebrity} turned to us and said, "This has been the most ${adjective} day ever!"</p>
+            `;
+
+            document.getElementById('madlib-story').innerHTML = madlibStory;
+            alert('Congratulations! You have sucessfully completed the Madlib! Head back to the main page to see what you have unlocked (You might have to refresh the page) (also, read the madlib its pretty cool I think)');
+        }
+
+        function increaseProgress() {
+            let progress = getCookie('progress') || 0;
+            progress++;
+            setCookie('progress', progress);
+            //alert(`Progress increased to ${progress}`);
+        }
+
+        // Helper functions for handling cookies
+        function setCookie(name, value, days = 365) {
+            const date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            const expires = "expires=" + date.toUTCString();
+            document.cookie = name + "=" + value + ";" + expires + ";path=/";
+        }
+
+        function getCookie(name) {
+            const decodedCookie = decodeURIComponent(document.cookie);
+            const cookies = decodedCookie.split(';');
+            for (let cookie of cookies) {
+                const [cookieName, cookieValue] = cookie.split('=');
+                if (cookieName.trim() === name) {
+                    return cookieValue;
+                }
+            }
+            return null;
+        }
+    </script>
+
+</body>
+</html>

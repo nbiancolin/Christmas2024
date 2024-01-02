@@ -6,12 +6,115 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Christmas 2023 - Challenge 1</title>
     <link rel="stylesheet" href="styles.css">
-    
+
 </head>
 
-<body id="challengeBody">
-    <h1>Christmas 2024</h1>
+<body id="challenge1Body">
+    <h1>Challenge 1: Image Puzzle</h1>
+    <h3>Drag and drop the puzzle pieces to complete the image.</h3>
+<!-- HINT: If you're stuck, go to /img/puzzle.png for the complete picture :)-->
 
+<div id="puzzle-container"></div>
+<button onclick="shufflePuzzle()">Shuffle Puzzle</button>
+<button onclick="increaseProgress()">Increase Progress</button>
+
+<script>
+    const puzzleContainer = document.getElementById('puzzle-container');
+    const puzzleLen = 15; // Change this to adjust the puzzle size
+    const puzzleWid = 10
+    const puzzlePieces = Array.from({ length: puzzleLen * puzzleWid }, (_, index) => index + 1);
+
+    initializePuzzle();
+
+    function initializePuzzle() {
+        puzzleContainer.innerHTML = '';
+        puzzlePieces.forEach((pieceNumber, index) => {
+            const puzzlePiece = document.createElement('div');
+            puzzlePiece.classList.add('puzzle-piece');
+            puzzlePiece.style.backgroundImage = `url('img/img (${pieceNumber}).png')`; // Replace with the actual path to your images
+            puzzlePiece.setAttribute('draggable', 'true');
+            puzzlePiece.addEventListener('dragstart', (e) => handleDragStart(e, index));
+            puzzleContainer.appendChild(puzzlePiece);
+        });
+
+        puzzleContainer.addEventListener('dragover', (e) => e.preventDefault());
+        puzzleContainer.addEventListener('drop', handleDrop);
+    }
+
+    function handleDragStart(e, index) {
+        e.dataTransfer.setData('text/plain', index.toString());
+    }
+
+    function handleDrop(e) {
+        e.preventDefault();
+
+        const sourceIndex = parseInt(e.dataTransfer.getData('text/plain'));
+        const targetIndex = puzzlePieces.indexOf(parseInt(e.target.style.backgroundImage.match(/\d+/)[0]));
+
+        if (sourceIndex !== targetIndex) {
+            const temp = puzzlePieces[sourceIndex];
+            puzzlePieces[sourceIndex] = puzzlePieces[targetIndex];
+            puzzlePieces[targetIndex] = temp;
+
+            initializePuzzle(); // Refresh the puzzle after swapping pieces
+
+            if (isPuzzleSorted()) {
+                increaseProgress();
+                alert('Congratulations! You have sucessfully solved the puzzle! Head back to the main page to see what you have unlocked (You might have to refresh the page)');
+                // Perform additional actions when the puzzle is properly sorted
+            }
+        }
+    }
+
+    function isPuzzleSorted() {
+        for (let i = 0; i < puzzlePieces.length; i++) {
+            if (puzzlePieces[i] !== i + 1) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    function shufflePuzzle() {
+        for (let i = puzzlePieces.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [puzzlePieces[i], puzzlePieces[j]] = [puzzlePieces[j], puzzlePieces[i]];
+        }
+
+        initializePuzzle(); // Refresh the puzzle after shuffling
+    }
+    shufflePuzzle();
+
+    function increaseProgress() {
+        let progress = getCookie('progress') || 0;
+        progress++;
+        setCookie('progress', progress);
+        //alert(`Progress increased to ${progress}`);
+    }
+
+    // Helper functions for handling cookies
+    function setCookie(name, value, days = 365) {
+        const date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        const expires = "expires=" + date.toUTCString();
+        document.cookie = name + "=" + value + ";" + expires + ";path=/";
+    }
+
+    function getCookie(name) {
+        const decodedCookie = decodeURIComponent(document.cookie);
+        const cookies = decodedCookie.split(';');
+        for (let cookie of cookies) {
+            const [cookieName, cookieValue] = cookie.split('=');
+            if (cookieName.trim() === name) {
+                return cookieValue;
+            }
+        }
+        return null;
+    }
+
+
+
+</script>
 </body>
 
 </html>

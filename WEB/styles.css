@@ -7,7 +7,7 @@
     margin: 0;
 }
 
-#challengeBody{
+#challenge1Body{
     background-color: #5ad1a7;
     display: flex;
     flex-direction: column;
@@ -16,12 +16,48 @@
     margin: 0;
 
 }
+
+#challenge2Body{
+    background-color: #fcf29d;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+
+}
+
+
+#madlib-story {
+    margin-top: 20px;
+    text-align: left;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    padding-right: 50px;
+    padding-bottom: 50px;
+    padding-left: 50px;
+
+}
+
+#madlib-form {
+    margin-top: 20px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    
+}
 h1 {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-top: 10px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+h3 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+    color: #003515;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
 }
 button {
     margin-top: 10px;
@@ -54,4 +90,17 @@ background-color: transparent;
 a:active {
 color: yellow;
 background-color: transparent;
+}
+
+#puzzle-container {
+    display: grid;
+    grid-template-columns: repeat(10, 100px);
+    gap: 5px;
+}
+.puzzle-piece {
+    width: 112px;
+    height: 102px;
+    border: 0px solid #000;
+    cursor: pointer;
+    background-size: cover;
 }
