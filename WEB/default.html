@@ -10,7 +10,8 @@
     <canvas id="polarCanvas" width=900 height=650></canvas>
     <p id="progressText">Progress: <span id="progressValue">2</span></p> <!-- Should only show if progress is not an expected value (ie. something fucked up)-->
 
-    <p id="link"> <a href="./working.html" target="_blank" rel="noopener noreferrer">Click Me!</a></p>
+    <p id="link"> <a href="./challenge1.html" target="_blank" rel="noopener noreferrer">Click Me!</a></p>
+    <a href="./challenge2.html" target="_blank" rel="noopener noreferrer" id="num2"> Link to Challenge 2</a>
     <p id="progressText"> (Keep this tab open) </p>
     <!-- better not leave any clues to the next website, DEFINITELY do not try going to challenge3.html ... (although you're smart so you could've probably guessed that)-->
     <script>
@@ -109,8 +110,10 @@
             const progressValueSpan = document.getElementById('progressValue');
 
             if(progress == 0.01){
-                progressText.textContent = `There's nothing here yet! \n To unlock this gift, you need to complete the first task. \n Find the next task at the link below:  `;
+                
+                progressText.textContent = `There's nothing here yet! \n To unlock this gift, you need to complete the first task. \n Find the next task at the link below: <br> (Not the link that says "Challenge 2", I cannot figure out how to make it go away lmao), that one is for challenge 2 `;
             } else if (progress < 1.01) {
+                num2.style.display = 'block';
                 progressText.textContent = `You've completed the first task! \n However, more is required to unlock this gift, you need to complete the second task. \n Find the next task at the link below:  `;
             } else if(progress < 3.01) {
                 progressText.textContent = `Congratulations on completing the second task! \n However, more is required to unlock this gift, There is no link for this one, you'll have to \"inspect around\" and find the next link! `;
@@ -168,6 +171,38 @@
             }
             return null;
         }
+
+        // Function to update progress when the cookie changes
+        function observeCookieChanges() {
+            const target = document.getElementById('progressValue');
+            
+            // Create a new MutationObserver and provide a callback function
+            const observer = new MutationObserver((mutations) => {
+                // Check if the 'progress' span content has changed
+                mutations.forEach((mutation) => {
+                    if (mutation.type === 'childList' && mutation.target.id === 'progressValue') {
+                        const newProgress = parseFloat(mutation.target.textContent);
+                        // Update the progress when the 'progress' span content changes
+                        if (!isNaN(newProgress)) {
+                            updateProgress(newProgress);
+                        }
+                    }
+                });
+            });
+
+            // Specify the node to observe, and the types of mutations to observe
+            observer.observe(target, { childList: true });
+
+            // Stop observing when the page is unloaded
+            window.addEventListener('unload', () => {
+                observer.disconnect();
+            });
+        }
+
+        // Call the function to start observing changes
+        observeCookieChanges();
+
+        
     </script>
 
     <!-- <button id="increaseButton" onclick="increaseProgress()">Increase Progress </button> --> 
