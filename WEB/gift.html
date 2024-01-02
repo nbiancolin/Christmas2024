@@ -8,12 +8,11 @@
 </head>
 <body id="giftBody">
     <canvas id="polarCanvas" width=900 height=650></canvas>
-    <!-- <button id="increaseButton">Increase Progress</button> -->
-    <p id="progressText">Progress: <span id="progressValue">2</span></p> <!-- Should only show if switch is undefined-->
+    <p id="progressText">Progress: <span id="progressValue">2</span></p> <!-- Should only show if progress is not an expected value (ie. something fucked up)-->
 
     <p id="link"> <a href="./working.html" target="_blank" rel="noopener noreferrer">Click Me!</a></p>
     <p id="progressText"> (Keep this tab open) </p>
-    <!-- better not leave any clues to the next website, DEFINITELY do not try going to challenge3.html ...-->
+    <!-- better not leave any clues to the next website, DEFINITELY do not try going to challenge3.html ... (although you're smart so you could've probably guessed that)-->
     <script>
         const canvas = document.getElementById('polarCanvas');
         const ctx = canvas.getContext('2d');

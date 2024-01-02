@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Challenge 3 - Tic Tac Toe</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-color: #f4c8f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-gap: 5px;
+            margin-bottom: 20px;
+        }
+
+        .cell {
+            width: 100px;
+            height: 100px;
+            font-size: 24px;
+            border: 2px solid #000000;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Tic Tac Toe</h1>
+
+    <div id="board"></div>
+    <p id="status"></p>
+
+    <script>
+        // Initialize game state
+        let currentPlayer = 'X';
+        let gameBoard = ['', '', '', '', '', '', '', '', ''];
+        let gameActive = true;
+
+        // Function to check for a winner
+        function checkWinner() {
+            const winPatterns = [
+                [0, 1, 2], [3, 4, 5], [6, 7, 8],  // Rows
+                [0, 3, 6], [1, 4, 7], [2, 5, 8],  // Columns
+                [0, 4, 8], [2, 4, 6]              // Diagonals
+            ];
+
+            for (const pattern of winPatterns) {
+                const [a, b, c] = pattern;
+                if (gameBoard[a] && gameBoard[a] === gameBoard[b] && gameBoard[a] === gameBoard[c]) {
+                    return gameBoard[a];
+                }
+            }
+
+            // Check for a tie
+            if (!gameBoard.includes('')) {
+                return 'T';
+            }
+
+            return null;
+        }
+
+        // Function to handle cell click
+        function handleCellClick(index) {
+            if (!gameBoard[index] && gameActive) {
+                gameBoard[index] = currentPlayer;
+                document.getElementById(`cell${index}`).textContent = currentPlayer;
+
+                const winner = checkWinner();
+                if (winner) {
+                    if (winner === 'T') {
+                        document.getElementById('status').textContent = 'It\'s a tie!';
+                    } else {
+                        document.getElementById('status').textContent = `Player ${winner} wins!`;
+                        if(winner == 'X'){
+                            alert("You win! Congratulations on beating the computer opponent (yes you can check the gift page now)");
+                            increaseProgress();
+                        }
+                    }
+                    gameActive = false;
+                } else {
+                    currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+                    document.getElementById('status').textContent = `Current Player: ${currentPlayer}`;
+
+                    if (currentPlayer === 'O' && gameActive) {
+                        // Computer's turn
+                        setTimeout(computerMove, 500);
+                    }
+                }
+            }
+        }
+
+        // Function to make a computer move
+        function computerMove() {
+            if (gameActive) {
+                let emptyCells = gameBoard.reduce((acc, cell, index) => {
+                    if (!cell) {
+                        acc.push(index);
+                    }
+                    return acc;
+                }, []);
+
+                if (emptyCells.length > 0) {
+                    const randomIndex = Math.floor(Math.random() * emptyCells.length);
+                    const computerChoice = emptyCells[randomIndex];
+                    gameBoard[computerChoice] = 'O';
+                    document.getElementById(`cell${computerChoice}`).textContent = 'O';
+
+                    const winner = checkWinner();
+                    if (winner) {
+                        if (winner === 'T') {
+                            document.getElementById('status').textContent = 'It\'s a tie!';
+                        } else {
+                            document.getElementById('status').textContent = 'Computer wins!';
+                        }
+                        gameActive = false;
+                    } else {
+                        currentPlayer = 'X';
+                        document.getElementById('status').textContent = `Current Player: ${currentPlayer}`;
+                    }
+                }
+            }
+        }
+
+        // Function to reset the game
+        function resetGame() {
+            currentPlayer = 'X';
+            gameBoard = ['', '', '', '', '', '', '', '', ''];
+            gameActive = true;
+
+            // Clear the board and status
+            document.getElementById('board').innerHTML = '';
+            document.getElementById('status').textContent = '';
+
+            // Create the board cells
+            for (let i = 0; i < 9; i++) {
+                const cell = document.createElement('div');
+                cell.className = 'cell';
+                cell.id = `cell${i}`;
+                cell.addEventListener('click', () => handleCellClick(i));
+                document.getElementById('board').appendChild(cell);
+            }
+
+            // Display initial status
+            document.getElementById('status').textContent = `Current Player: ${currentPlayer}`;
+
+            // If the computer is the starting player, make its move
+            if (currentPlayer === 'O') {
+                setTimeout(computerMove, 500);
+            }
+        }
+
+        // Initialize the game board
+        resetGame();
+
+        function increaseProgress() {
+            let progress = getCookie('progress') || 0;
+            progress++;
+            progress++;
+            setCookie('progress', progress);
+            //alert(`Progress increased to ${progress}`);
+        }
+
+        // Helper functions for handling cookies
+        function setCookie(name, value, days = 365) {
+            const date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            const expires = "expires=" + date.toUTCString();
+            document.cookie = name + "=" + value + ";" + expires + ";path=/";
+        }
+
+        function getCookie(name) {
+            const decodedCookie = decodeURIComponent(document.cookie);
+            const cookies = decodedCookie.split(';');
+            for (let cookie of cookies) {
+                const [cookieName, cookieValue] = cookie.split('=');
+                if (cookieName.trim() === name) {
+                    return cookieValue;
+                }
+            }
+            return null;
+        }
+    </script>
+
+    <button onclick="resetGame()">Reset Game</button>
+
+</body>
+</html>
