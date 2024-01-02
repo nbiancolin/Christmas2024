@@ -13,6 +13,7 @@
 
     <p id="link"> <a href="./working.html" target="_blank" rel="noopener noreferrer">Click Me!</a></p>
     <p id="progressText"> (Keep this tab open) </p>
+    <!-- better not leave any clues to the next website, DEFINITELY do not try going to challenge3.html ...-->
     <script>
         const canvas = document.getElementById('polarCanvas');
         const ctx = canvas.getContext('2d');
@@ -113,11 +114,12 @@
             } else if (progress < 1.01) {
                 progressText.textContent = `You've completed the first task! \n However, more is required to unlock this gift, you need to complete the second task. \n Find the next task at the link below:  `;
             } else if(progress < 3.01) {
-                progressText.textContent = `Congratulations on completing the second task! \n However, more is required to unlock this gift, you need to complete the third task. \n Find the next task at the link below:  `;
+                progressText.textContent = `Congratulations on completing the second task! \n However, more is required to unlock this gift, There is no link for this one, you'll have to \"inspect around\" and find the next link! `;
             }
 
+            
             /*
-            switch(progress){
+            switch(progress)\{
                 case 0.01:
                     progressText.textContent = `There's nothing here yet! \n To unlock this gift, you need to complete the first task. \n Find the next task at the link below:  `;
                     //progressValueSpan.style.color = 'green';
